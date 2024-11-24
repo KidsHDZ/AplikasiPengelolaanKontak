@@ -365,21 +365,28 @@ public class AplikasiPengelolaanKontakFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow >= 0) {
-            int id = (int) jTable1.getValueAt(selectedRow, 0);
-            String sql = "DELETE FROM contacts WHERE id = ?";
-            try {
-                PreparedStatement pstmt = connection.prepareStatement(sql);
-                pstmt.setInt(1, id);
-                pstmt.executeUpdate();
-                loadContacts(); // Refresh the contact list
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+         int selectedRow = jTable1.getSelectedRow();
+    if (selectedRow >= 0) {
+        // Get the ID of the selected contact
+        int id = (int) jTable1.getValueAt(selectedRow, 0);
+        String sql = "DELETE FROM contacts WHERE id = ?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Contact deleted successfully.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No contact found with the given ID.");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select a contact to delete.");
+            loadContacts(); // Refresh the contact list
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error deleting contact: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for debugging
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Please select a contact to delete.");
+    }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

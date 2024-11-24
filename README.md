@@ -52,4 +52,4 @@ Pastikan untuk menginstal semua dependensi yang diperlukan dan mengonfigurasi da
  Latihan 3 - Muhammad Ikhya 2210010405
 
  ## Demo
- ![Demo GIF](img/Kontakdemo.gif)
+ ![Demo GIF](img/demofoto.png)
